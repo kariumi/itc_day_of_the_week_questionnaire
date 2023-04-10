@@ -110,35 +110,65 @@ for i in range(len(departments)):
     # 参加できない日のアンケ結果を表示
 
     message += f"\
-    参加できない日の投票結果を表示します。\n\
+    ❌参加できない日の投票結果を表示します。\n\
+    時間帯\t|\t月\t火\t水\t木\t金\t土\t日\n\
+    {tmp}\n"
+    tmp = ""
+
+    # 参加できない日アンケによる結論
+    # tmp = "【参加できない日アンケによる結論】\n"
+    # if minA == 0:
+    #     if len(dekinai) == 1:
+    #         tmp += "全員が参加できる日が一つに絞られました！以下の通りです。"
+    #     else:
+    #         tmp += "全員が参加できる日は複数ありますが、以下の通りです。"
+    # else:
+    #     tmp = f"全員が参加できる日はありませんでした。"
+    #     if len(dekinai) == 1:
+    #         tmp += "しかし、最も投票数が少ない日は一つに絞られました。以下の通りです。"
+
+    #     else:
+    #         tmp += f"最も投票数が少ない日を以下の通りです。なお、この日は{minA}人が参加できないと投票しています。"
+
+    # message += f"   {tmp}\n"
+    # tmp = ""
+    # for day in dekinai:
+    #     i = int(day/7)
+    #     j = day % 7
+    #     tmp += f"{dayOfWeek[j]}{time[i]}、"
+    # tmp = tmp.rstrip("、")
+    # message += f"   {tmp}\n\n"
+    # tmp = ""
+
+    # 参加したい日を決める
+    shitai = []
+    for j in range(len(B[i])):
+        tmp += f"{time[j]}\t|"
+        for k in range(len(B[i][j])):
+            tmp += f"\t{B[i][j][k]}"
+            if B[i][j][k] == maxB:
+                shitai.append(j*7+k)
+        tmp += f"\n    "
+
+    # 参加したい日のアンケ結果を表示
+
+    message += f"\
+    ⭕参加したい日の投票結果を表示します。\n\
     時間帯\t|\t月\t火\t水\t木\t金\t土\t日\n\
     {tmp}\n\
-【結果】\n"
+【{departments[i]}の総評】\n"
 
     tmp = ""
-    if minA == 0:
-        if len(dekinai) == 1:
-            tmp += "全員が参加できる日が一つに絞られました！以下の通りです。"
-        else:
-            tmp += "全員が参加できる日は複数ありますが、以下の通りです。"
+    if len(dekinai) == 1:  # 最もみんなが参加できる日が一つに絞られた場合
+        tmp = f"部会に最適な日が一つに絞られました。以下のとおりです。この日に部会に参加できない人は{minA}人います。\n"
     else:
-        tmp = f"全員が参加できる日はありませんでした。"
-        if len(dekinai) == 1:
-            tmp += "しかし、最も投票数が少ない日は一つに絞られました。以下の通りです。"
-
+        if len(shitai) == 1:
+            tmp += f"部会に最適な日が一つに絞られました。以下のとおりです。この日に部会に参加できない人は{minA}人、この日に参加したい人は{maxB}人です。\n"
         else:
-            tmp += f"最も投票数が少ない日を以下の通りです。なお、この日は{minA}人が参加できないと投票しています。"
+            tmp += f"部会に最適な日が複数ありました。以下のとおりです。なお、この日に部会に参加できない人は{minA}人、この日に参加したい人は{maxB}人です。\n"
 
     message += f"{tmp}\n"
-    tmp = ""
-    for day in dekinai:
-        i = int(day/7)
-        j = day % 7
-        tmp += f"{dayOfWeek[j]}{time[i]}、"
-    tmp = tmp.rstrip("、")
-    message += f"{tmp}\n"
 
-    #message += f"minA:{minA},max_B:{maxB}\n"
     message += "--------------------------------------------------\n"
     section += 1
 
