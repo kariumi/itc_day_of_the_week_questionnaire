@@ -82,17 +82,23 @@ with open("result.csv", encoding="utf-8") as f:
 section = 1
 message = f"\n\
 【2023年度前期 曜日決めアンケート集計結果】\n\
-{section}. 序論\n\
+【序論】\n\
 今回の活動日決めアンケートの結果を表示します。\n\
 \n\
-投票総数：{numOfMember}\n\
---------------------------------------------------\n"
-section += 1
+【集計方法】\n\
+① 参加できない日のアンケートから最も多くの人が参加できる日を割り出します。= 集合A\n\
+② 集合Aの要素が一つならばそれを部会日とします。複数なら③へ進みます\n\
+③ 参加したいのアンケートから、集合Aの中で最も多くの人が参加したい日を割り出します。 = 集合B\n\
+④ 集合Bの要素数が1なら、それを部会日とし、複数ならそれらを部会日の候補とします。\n\
+\n\
+投票総数：{numOfMember}\n\n\
+    - ---------------------------------------------------------------------------------------------------\n"
+
 
 for i in range(len(departments)):
     message += f"\
-{section}. {departments[i]}の投票結果\n\
-・投票総数：{numOfDepMenber[i]}\n"
+【{departments[i]}】\n\n\
+・投票総数：{numOfDepMenber[i]}\n\n"
     minA = min(min(A[i], key=max))
     maxB = max(max(B[i], key=max))
     tmp = ""
@@ -110,7 +116,7 @@ for i in range(len(departments)):
     # 参加できない日のアンケ結果を表示
 
     message += f"\
-    ❌参加できない日の投票結果を表示します。\n\
+    ❌参加できない日の投票結果を表示します。（最小値:{minA}）\n\
     時間帯\t|\t月\t火\t水\t木\t金\t土\t日\n\
     {tmp}\n"
     tmp = ""
@@ -153,7 +159,7 @@ for i in range(len(departments)):
     # 参加したい日のアンケ結果を表示
 
     message += f"\
-    ⭕参加したい日の投票結果を表示します。\n\
+    ⭕参加したい日の投票結果を表示します。（最大値:{maxB}）\n\
     時間帯\t|\t月\t火\t水\t木\t金\t土\t日\n\
     {tmp}\n\
 【{departments[i]}の総評】\n"
@@ -179,9 +185,9 @@ for i in range(len(departments)):
     for day in saiteki:
         message += f"{day}⭐、⭐"
     message = message.rstrip("、⭐")
-    message += "⭐\n"
+    message += "⭐\n\n"
 
-    message += "--------------------------------------------------\n"
-    section += 1
+    message += "----------------------------------------------------------------------------------------------------\n"
+
 
 print(message)
