@@ -105,16 +105,38 @@ for i in range(len(departments)):
             tmp += f"\t{A[i][j][k]}"
             if A[i][j][k] == minA:
                 dekinai.append(j*7+k)
-        tmp += f"\n"
+        tmp += f"\n    "
 
     # 参加できない日のアンケ結果を表示
 
     message += f"\
-時間帯\t|\t月\t火\t水\t木\t金\t土\t日\n\
-{tmp}\n\
-\n\
-{dekinai}\n\
-    "
+    参加できない日の投票結果を表示します。\n\
+    時間帯\t|\t月\t火\t水\t木\t金\t土\t日\n\
+    {tmp}\n\
+【結果】\n"
+
+    tmp = ""
+    if minA == 0:
+        if len(dekinai) == 1:
+            tmp += "全員が参加できる日が一つに絞られました！以下の通りです。"
+        else:
+            tmp += "全員が参加できる日は複数ありますが、以下の通りです。"
+    else:
+        tmp = f"全員が参加できる日はありませんでした。"
+        if len(dekinai) == 1:
+            tmp += "しかし、最も投票数が少ない日は一つに絞られました。以下の通りです。"
+
+        else:
+            tmp += f"最も投票数が少ない日を以下の通りです。なお、この日は{minA}人が参加できないと投票しています。"
+
+    message += f"{tmp}\n"
+    tmp = ""
+    for day in dekinai:
+        i = int(day/7)
+        j = day % 7
+        tmp += f"{dayOfWeek[j]}{time[i]}、"
+    tmp = tmp.rstrip("、")
+    message += f"{tmp}\n"
 
     #message += f"minA:{minA},max_B:{maxB}\n"
     message += "--------------------------------------------------\n"
