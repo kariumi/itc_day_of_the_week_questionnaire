@@ -175,11 +175,11 @@ for i in range(len(departments)):
     else:
         tmp += f"部会に最適な日が複数ありました。以下のとおりです。なお、この日に部会に参加できない人は{minA}人、この日に参加したい人は{maxB}人です。\n"
 
-    message += f"{tmp}\n【"
+    message += f"{tmp}\n⭐"
     for day in saiteki:
-        message += f"{day}、"
-    message = message.rstrip("、")
-    message += "】\n"
+        message += f"{day}⭐、⭐"
+    message = message.rstrip("、⭐")
+    message += "⭐\n"
 
     message += "--------------------------------------------------\n"
     section += 1
