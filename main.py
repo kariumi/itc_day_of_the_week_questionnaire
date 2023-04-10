@@ -21,7 +21,7 @@ time = ["20時", "21時", "22時"]
 
 dayOfWeek = ["月", "火", "水", "木", "金", "土", "日"]
 # 参加できない日を記録する
-# 月,火,水,木,金,土,日
+# 月, 火,水, 木,金, 土,日
 # [[0, 0, 0, 0, 0, 0, 0],  20時
 # [0, 0, 0, 0, 0, 0, 0],   21時
 # [0, 0, 0, 0, 0, 0, 0]]   22時
@@ -158,16 +158,28 @@ for i in range(len(departments)):
     {tmp}\n\
 【{departments[i]}の総評】\n"
 
-    tmp = ""
-    if len(dekinai) == 1:  # 最もみんなが参加できる日が一つに絞られた場合
-        tmp = f"部会に最適な日が一つに絞られました。以下のとおりです。この日に部会に参加できない人は{minA}人います。\n"
+    saiteki = []
+    if len(dekinai) == 1:
+        i = int(day/7)
+        j = day % 7
+        saiteki.append(f"【{dayOfWeek[j]}{time[i]}】\n")
     else:
-        if len(shitai) == 1:
-            tmp += f"部会に最適な日が一つに絞られました。以下のとおりです。この日に部会に参加できない人は{minA}人、この日に参加したい人は{maxB}人です。\n"
-        else:
-            tmp += f"部会に最適な日が複数ありました。以下のとおりです。なお、この日に部会に参加できない人は{minA}人、この日に参加したい人は{maxB}人です。\n"
+        for day in dekinai:
+            if day in shitai:
+                i = int(day/7)
+                j = day % 7
+                saiteki.append(f"{dayOfWeek[j]}{time[i]}")
+    tmp = ""
+    if len(saiteki) == 1:  # 最もみんなが参加できる日が一つに絞られた場合
+        tmp = f"部会に最適な日が一つに絞られました。以下のとおりです。この日に部会に参加できない人は{minA}人、この日に参加したい人は{maxB}人です。\n"
+    else:
+        tmp += f"部会に最適な日が複数ありました。以下のとおりです。なお、この日に部会に参加できない人は{minA}人、この日に参加したい人は{maxB}人です。\n"
 
-    message += f"{tmp}\n"
+    message += f"{tmp}\n【"
+    for day in saiteki:
+        message += f"{day}、"
+    message = message.rstrip("、")
+    message += "】\n"
 
     message += "--------------------------------------------------\n"
     section += 1
