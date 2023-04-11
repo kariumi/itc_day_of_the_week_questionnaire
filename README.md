@@ -1,4 +1,4 @@
-# itc_day_of_the_week_questionnaire
+# ITC 活動希望日調査のアンケート　自動集計システム
 
 
 ① google form「曜日決めアンケート」から出力したresult.csvファイルをmain.pyと同じ階層に入れる。
@@ -9,3 +9,6 @@
 
 
 ※result.csvは個人情報なのでgithubにあげないように注意すること。
+
+
+※無駄に、部門の増減にも対応できます。（新しくボドゲ部ができた！MV部が廃止された！とか）
