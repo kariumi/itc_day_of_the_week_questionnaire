@@ -77,8 +77,8 @@ with open("result.csv", encoding="utf-8") as f:
         if member[0] == "タイムスタンプ":
             continue
         numOfMember += 1  # 投票総数記録用
-        if not (member[6] == ""):
-            question.append(member[6])
+        if not (member[9] == ""):
+            question.append(member[9])
 
     # 集計終わり
 
