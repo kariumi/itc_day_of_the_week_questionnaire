@@ -250,6 +250,16 @@ message += f"ここから選択できない場合は、上のアンケ結果を�
 #     message += f"{day}⭐、⭐"
 # message = message.rstrip("、⭐")
 # message += "⭐\n\n"
+
+
+# ここから、質問一覧
+
+message += f"----------------------------------------------------------------------------------------------------\n【寄せられた質問一覧】\n"
+
+for q in range(len(question)):
+    message += f"{1+q}. {question[q]}\n"
+
+
 print(message)
 
 
